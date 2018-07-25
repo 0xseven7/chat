@@ -4,7 +4,9 @@ import Logo from '../components/logo/logo';
 import {List, InputItem, WingBlank, WhiteSpace, Button, Radio} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {login} from '../redux/user.redux';
-
+import {Redirect} from 'react-router-dom';
+import {getRedirectPath} from '../util';
+// import './style.css'
 @connect(
   state => ({user: state}),
   {login}
@@ -14,7 +16,7 @@ class Login extends React.Component {
     super(props);
     this.state = {
       user: '',
-      psd: '',
+      pwd: ''
     };
     this.handleLogin = this.handleLogin.bind(this);
   }
@@ -43,8 +45,10 @@ class Login extends React.Component {
     const RadioItem = Radio.RadioItem;
     return (
       <div>
+        {this.props.user.redirectTo ? <Redirect to={getRedirectPath(this.props.user)}/> : null}
         <Logo></Logo>
         <h2>登录页面</h2>
+        {this.props.user.msg ? <p className='message'>{this.props.user.msg}</p> : null}
         <WingBlank>
           <List>
             <InputItem placeholder="请输入用户名" onChange={(v) => this.handleChange('user', v)}>用户</InputItem>
