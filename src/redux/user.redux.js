@@ -1,7 +1,8 @@
-import  axios from 'axios';
+import axios from 'axios';
 import {getRedirectPath} from '../util';
 
-const REGISTER_SUCESS = 'REGISTER_SUCCESS';
+const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 const initState = {
   redirectTo: '',
@@ -15,22 +16,52 @@ const initState = {
 // reducer
 export function user (state = initState, action) {
   switch (action.type) {
-    case REGISTER_SUCESS:
+    case REGISTER_SUCCESS:
+      return {...state, msg: '', isAuth: true, ...action.payload, redirectTo: getRedirectPath(action.payload)};
+    case LOGIN_SUCCESS:
       return {...state, msg: '', isAuth: true, ...action.payload, redirectTo: getRedirectPath(action.payload)};
     case ERROR_MSG:
-      return{...state, isAuth: false, msg: action.msg};
+      return {...state, isAuth: false, msg: action.msg};
     default:
       return state;
   }
 }
-//action
+
+/**
+ *
+ * @param data
+ * @returns {{type: string, payload: *}}
+ */
 function registerSuccess (data) {
-  return {type: REGISTER_SUCESS, payload: data}
+  return {type: REGISTER_SUCCESS, payload: data};
 }
+
+/**
+ *
+ * @param data
+ * @returns {{type: string, payload: *}}
+ */
+function loginSuccess (data) {
+  return {type: LOGIN_SUCCESS, payload: data};
+}
+
+/**
+ *
+ * @param msg
+ * @returns {{msg: *, type: string}}
+ */
 function errorMsg (msg) {
   return {msg, type: ERROR_MSG};
 }
 
+/**
+ *
+ * @param user {String}
+ * @param pwd
+ * @param repeatPwd
+ * @param type
+ * @returns {*}
+ */
 export function register ({user, pwd, repeatPwd, type}) {
   if (!user || !pwd) {
     return errorMsg('用户名和密码不能为空');
@@ -48,5 +79,21 @@ export function register ({user, pwd, repeatPwd, type}) {
       }
     });
   };
+}
+
+export function login ({user, pwd, type}) {
+  if (!user || !pwd) {
+    return errorMsg('用户名和密码不能为空');
+  }
+  return dispatch => {
+    axios.post('/user/login', {user, pwd, type}).then(res => {
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch(loginSuccess({user, pwd, type}));
+      } else {
+        dispatch(errorMsg(res.data.msg));
+      }
+    });
+  };
+
 }
 

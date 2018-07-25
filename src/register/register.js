@@ -5,7 +5,6 @@ import {InputItem, WhiteSpace, WingBlank, Button, List, Radio} from 'antd-mobile
 import {connect} from 'react-redux';
 import {register} from '../redux/user.redux';
 import {Redirect} from 'react-router-dom';
-
 @connect(
   (state) => ({user: state}),
   {register}
@@ -58,7 +57,6 @@ class Register extends React.Component {
               checked={this.state.type === 'boss'}
             >boss</RadioItem>
           </List>
-          <Button type="primary" onClick={this.login}>登录</Button>
           <WhiteSpace/>
           <Button type="primary" onClick={this.handleRegister}>注册</Button>
         </WingBlank>
