@@ -109,6 +109,7 @@
   },
   "devDependencies": {
     "antd-mobile": "^2.2.2",
+    "proptypes": "^1.1.0",
     "react-redux": "^5.0.7"
   },
   "proxy": "http://127.0.0.1:5000"
