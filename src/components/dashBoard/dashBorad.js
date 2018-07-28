@@ -1,8 +1,11 @@
 import React from 'react';
-import {TabBar, NavBar} from 'antd-mobile';
+import {NavBar} from 'antd-mobile';
 import {connect} from 'react-redux';
+import {Switch, Route} from 'react-router-dom';
+import Boss from '../../components/Boss/Boss'
 
-import NavLinkBar from '../navlinkbar/NavLinkBar'
+import NavLinkBar from '../navlinkbar/NavLinkBar';
+
 @connect(
   (state) => ({user: state})
 )
@@ -12,31 +15,33 @@ class DashBoard extends React.Component {
 
   render () {
     const user = this.props.user;
-    const  {pathname} = this.props.location;
-
-    console.log(this.props);
+    const {pathname} = this.props.location;
+    console.log(pathname);
     const navList = [
       /**
-       * boss页面, type为genuis的时候隐藏
+       * boss页面, type为genius的时候隐藏
        */
       {
         path: '/boss',
         text: 'Boss',
-        icon: 'boss',
-        title: 'BOSS列表',
+        icon: 'Boss',
+        title: 'boss',
         component: Boss,
-        hide: user.type === 'genuis'
+        hide: user.type === 'genius',
+        selected: true
       },
       /**
        * 极客页面, type为boss的时候隐藏
        */
       {
-        path: '/genuis',
+        path: '/genius',
         text: '极客',
-        icon: 'genuis',
-        title: '极客列表',
-        component: Genuis,
-        hide: user.type === 'boss'
+        icon: 'genius',
+        title: '极客',
+        component: Genius,
+        hide: user.type === 'boss',
+        selected: true
+
       },
       /**
        * 消息页面, 不隐藏
@@ -45,24 +50,34 @@ class DashBoard extends React.Component {
         path: '/msg',
         text: '消息',
         icon: 'msg',
-        title: "message",
+        title: '消息',
+        component: Msg
+
       },
       {
         path: '/me',
         text: '个人中心',
-        title: '个人中心',
+        title: '我',
+        icon: 'me',
         component: User
       }
     ];
     return (
       <div>
-        <NavBar >{navList.find(v=>v.path=== pathname).title}</NavBar>
-        <h2>content</h2>
+        <NavBar>{navList.find(v => v.path === pathname).title}</NavBar>
+        <div style={{marginTop: 45}}>
+            <Switch>
+              {navList.map(v => (
+                <Route component={v.component} path={v.path} key={v.path}></Route>
+              ))}
+            </Switch>
+        </div>
         <NavLinkBar data={navList}></NavLinkBar>
       </div>
     );
   }
 }
+
 class Msg extends React.Component {
   render () {
     return (
@@ -73,7 +88,7 @@ class Msg extends React.Component {
   }
 }
 
-class Genuis extends React.Component {
+class Genius extends React.Component {
   render () {
     return (
       <div>
@@ -92,14 +107,6 @@ class User extends React.Component {
     );
   }
 }
-class Boss extends React.Component {
-  render () {
-    return (
-      <div>
-        个人中心
-      </div>
-    );
-  }
-}
+
 
 export default DashBoard;

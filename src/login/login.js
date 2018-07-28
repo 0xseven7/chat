@@ -42,7 +42,6 @@ class Login extends React.Component {
    * @returns {*}
    */
   render () {
-    const RadioItem = Radio.RadioItem;
     return (
       <div>
         {this.props.user.redirectTo ? <Redirect to={getRedirectPath(this.props.user)}/> : null}

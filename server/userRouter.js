@@ -75,9 +75,29 @@ Router.post('/login', function (req, res) {
     })
   });
   Router.get('/list', function (req, res) {
-    User.find({}, function (err, data) {
-      res.json(data);
+    const {type} = req.query;
+    User.find({type}, function (err, data) {
+      if (err) {
+        return res.json({code: 1, msg: '后端出错'})
+      }
+      res.json({code: 0, data: data})
     });
   });
+Router.post('/update', function (req, res) {
+  // const {position, dasc, avatar} = req.body
+  const userid = req.cookies.userid;
+  if (!userid) {
+    return res.json({code: 1})
+  }
+  const body = req.body;
+  User.findByIdAndUpdate(userid, body, function (err, doc) {
+    const data = Object.assign({
+      user: doc.user,
+      type: doc.type
+    }, body);
+    return res.json({code: 0, data});
+  })
+});
   module.exports = Router;
+
 

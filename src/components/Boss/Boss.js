@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {Card, WingBlank} from 'antd-mobile';
 
 class Boss extends React.Component {
   constructor (props) {
@@ -18,11 +19,20 @@ class Boss extends React.Component {
   }
 
   render () {
+    console.log(this.state);
     return (
-      <div>
-
-      </div>
-    );
+      <WingBlank>
+        {this.state.data.map((v) => (
+          <Card key={v.user}>
+            <Card.Header
+              title={v.user}
+              extra={<span>{v.user}</span>}
+            >
+            </Card.Header>
+          </Card>
+        ))}
+      </WingBlank>
+    )
   }
 }
 

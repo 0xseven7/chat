@@ -4,9 +4,9 @@ export function getRedirectPath ({type, avatar}) {
 
   // user.type /boss /genius
   // user.avatar /bossinfo /genius info
-  let url = (type === 'boss') ? '/boss' : '/genuis';
+  let url = (type === 'boss') ? '/boss' : '/genius';
   if (!avatar) {
-    url += '/info';
+    url += 'info';
   }
   return url;
 }

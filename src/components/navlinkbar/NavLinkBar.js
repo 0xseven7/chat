@@ -1,26 +1,38 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {TabBar, Icon} from 'antd-mobile'
+import {TabBar} from 'antd-mobile';
 
-import './fonts/iconfont/iconfont.css'
+import {withRouter} from 'react-router-dom';
+import './fonts/iconfont.css';
+@withRouter
 class NavLinkBar extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired
   };
+
   render () {
     const navList = this.props.data.filter(v => !v.hide);
-    console.log(navList);
     const TabBarItem = TabBar.Item;
+    const {pathname}= this.props.location;
     return (
-        <TabBar>
-          {/*{navList.map(v => (*/}
-            {/*<TabBarItem title={v.title} icon={<Icon type={v.icon}></Icon>}></TabBarItem>*/}
-          {/*))}*/}
-          <i className='iconfont icon-me'></i>
-        </TabBar>
-    )
+      <TabBar className='tab-bar'>
+        {navList.map(v => (
+          <TabBarItem
+            title={v.title}
+            key={v.path}
+            icon={<i className={`am-icon am-icon-${v.icon}`}></i>}
+            selectedIcon={<i className={`am-icon am-icon-${v.icon}`}></i>}
+            selected = {pathname === v.path}
+            onPress={() => {
+              this.props.history.push(v.path);
+            }}
+          >
+          </TabBarItem>
+        ))}
+      </TabBar>
+    );
 
   }
 }
+
 export default NavLinkBar;

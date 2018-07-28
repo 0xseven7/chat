@@ -13,7 +13,7 @@ class Register extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      type: 'genuis', //或者boss,
+      type: 'genius', //或者boss,
       username: '',
       pwd: '',
       repeatPwd: ''
@@ -49,8 +49,8 @@ class Register extends React.Component {
             <InputItem type="password" placeholder="确认密码" onChange={v => this.handleChange('repeatPwd', v)}>确认密码</InputItem>
             <WhiteSpace/>
             <RadioItem
-              checked={this.state.type === 'genuis'}
-              onChange={() => this.handleChange('type', 'genuis')}>
+              checked={this.state.type === 'genius'}
+              onChange={() => this.handleChange('type', 'genius')}>
               牛人</RadioItem>
             <WhiteSpace/>
             <RadioItem
