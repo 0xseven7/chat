@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
 import Boss from '../../components/Boss/Boss'
 import Genius from '../../components/Genius/Genius';
+import UserInfo from '../../components/userInfo/userInfo';
 
 import NavLinkBar from '../navlinkbar/NavLinkBar';
 
@@ -88,17 +89,5 @@ class Msg extends React.Component {
     );
   }
 }
-
-
-class User extends React.Component {
-  render () {
-    return (
-      <div>
-        个人中心
-      </div>
-    );
-  }
-}
-
 
 export default DashBoard;
