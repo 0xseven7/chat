@@ -7,7 +7,7 @@ import AvatarSelector from '../../components/AvatarSelector/AvatarSelector';
 import {update} from '../../redux/user.redux';
 
 @connect (
-  state=>({user: state}),
+  state=>(state),
   {update}
 )
 class GeniusInfo extends React.Component {
@@ -30,12 +30,11 @@ class GeniusInfo extends React.Component {
   render () {
     //currentPATH
     const pathname = this.props.location.pathname;
-    const redirect =  this.props.user.redirectTo
+    const redirect =  this.props.redirectTo;
     return (
       <div>
-        {console.log(this.props.user.redirectTo)}
         {redirect && redirect!== pathname ? <Redirect to={redirect} />: null}
-        <NavBar mode="dark">Boss完善信息页面</NavBar>
+        <NavBar mode="dark">完善信息</NavBar>
         <AvatarSelector selectAvatar={imgName => {
           this.setState({avatar: imgName});
         }}/>

@@ -3,11 +3,12 @@ import {NavBar} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
 import Boss from '../../components/Boss/Boss'
+import Genius from '../../components/Genius/Genius';
 
 import NavLinkBar from '../navlinkbar/NavLinkBar';
 
 @connect(
-  (state) => ({user: state})
+  (state) => (state)
 )
 
 
@@ -59,13 +60,13 @@ class DashBoard extends React.Component {
         text: '个人中心',
         title: '我',
         icon: 'me',
-        component: User
+        component: UserInfo
       }
     ];
     return (
       <div>
         <NavBar>{navList.find(v => v.path === pathname).title}</NavBar>
-        <div style={{marginTop: 45}}>
+        <div style={{marginTop: 10}}>
             <Switch>
               {navList.map(v => (
                 <Route component={v.component} path={v.path} key={v.path}></Route>
@@ -88,15 +89,6 @@ class Msg extends React.Component {
   }
 }
 
-class Genius extends React.Component {
-  render () {
-    return (
-      <div>
-        牛人
-      </div>
-    );
-  }
-}
 
 class User extends React.Component {
   render () {

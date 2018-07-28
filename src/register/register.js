@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {register} from '../redux/user.redux';
 import {Redirect} from 'react-router-dom';
 @connect(
-  (state) => ({user: state}),
+  (state) => (state.user),
   {register}
 )
 class Register extends React.Component {
@@ -37,9 +37,9 @@ class Register extends React.Component {
     console.log(this);
     return (
       <div>
-        {this.props.user.redirectTo ? <Redirect  to={this.props.user.redirectTo} /> : null  }
+        {this.props.redirectTo ? <Redirect  to={this.props.redirectTo} /> : null  }
         <Logo></Logo>
-        {this.props.user.msg ? <div>{this.props.user.msg}</div> : null}
+        {this.props.msg ? <div>{this.props.msg}</div> : null}
         <WingBlank>
           <List>
             <InputItem placeholder="请输入用户名" onChange={v => this.handleChange('user', v)}>用户</InputItem>
