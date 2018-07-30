@@ -8,7 +8,7 @@ import {Redirect} from 'react-router-dom';
 import {getRedirectPath} from '../util';
 // import './style.css'
 @connect(
-  state => ({user: state}),
+  state => (state.user),
   {login}
 )
 class Login extends React.Component {
@@ -42,12 +42,13 @@ class Login extends React.Component {
    * @returns {*}
    */
   render () {
+    console.log(this.props.redirectTo);
     return (
       <div>
-        {this.props.user.redirectTo ? <Redirect to={getRedirectPath(this.props.user)}/> : null}
-        <Logo></Logo>
+        {this.props.redirectTo&& this.props.redirectTo !== '/login' ? <Redirect to={getRedirectPath(this.props.redirectTo)}/> : null}
+        <Logo/>
         <h2>登录页面</h2>
-        {this.props.user.msg ? <p className='message'>{this.props.user.msg}</p> : null}
+        {this.props.msg ? <p className='message'>{this.props.msg}</p> : null}
         <WingBlank>
           <List>
             <InputItem placeholder="请输入用户名" onChange={(v) => this.handleChange('user', v)}>用户</InputItem>
@@ -56,7 +57,6 @@ class Login extends React.Component {
           </List>
           <WhiteSpace/>
           <Button type="primary" onClick={this.handleLogin}>登录</Button>
-
         </WingBlank>
       </div>
     );

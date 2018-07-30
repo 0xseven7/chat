@@ -6,6 +6,7 @@ import {getRedirectPath} from '../util';
 const ERROR_MSG = 'ERROR_MSG';
 const LOAD_DATA = 'LOAD_DATA';
 const AUTH_SUCCESS = "AUTH_SUCCESS";
+const LOGOUT = 'LOGPOUT';
 const initState = {
   redirectTo: '',
   msg: '',
@@ -22,6 +23,8 @@ export function user (state = initState, action) {
       return {...state, isAuth: false, msg: action.msg};
     case LOAD_DATA:
       return {...state, ...action.payload};
+    case LOGOUT:
+       return {...initState, redirectTo: '/login'};
     default:
       return state;
   }
@@ -44,6 +47,7 @@ function errorMsg (msg) {
 function authSuccess (data) {
   return {type: AUTH_SUCCESS, payload: data};
 }
+
 /**
  *
  * @param user {String}
@@ -78,6 +82,7 @@ export function login ({user, pwd, type}) {
   return dispatch => {
     axios.post('/user/login', {user, pwd, type}).then(res => {
       if (res.status === 200 && res.data.code === 0) {
+        console.log(res.data.data);
         dispatch(authSuccess(res.data.data));
       } else {
         dispatch(errorMsg(res.data.msg));
@@ -98,5 +103,10 @@ export function update (data) {
         dispatch(errorMsg(res.data.msg));
       }
     })
+  }
+}
+export function logoutCommit () {
+  return dispatch => {
+    dispatch({type: LOGOUT});
   }
 }

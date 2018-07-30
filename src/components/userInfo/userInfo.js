@@ -1,17 +1,44 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import browserCookies from 'browser-cookies';
+import {Redirect} from 'react-router-dom';
 
-import { Result, Icon, WhiteSpace , List} from 'antd-mobile';
+import {Result, Icon, WhiteSpace, List, Button, Modal} from 'antd-mobile';
+import {logoutCommit} from '../../redux/user.redux';
+
+
 
 @connect(
-  state => state.user
+  state => state.user,
+  {logoutCommit}
 )
 class UserInfo extends React.Component {
+  constructor (props) {
+    super(props);
+    this.logout = this.logout.bind(this)
+  }
+
+  logout () {
+    // browserCookies.erase('userid');
+    // console.log('logout');
+    const alert = Modal.alert;
+
+    alert('确定退出登录?', '', [
+      {text: '取消'},
+      {
+        text: '确定', onPress: () => {
+          browserCookies.erase('userid');
+          this.props.logoutCommit();
+        }
+      },
+    ]);
+  }
+
   render () {
-    console.log(this.props);
     const Item = List.Item;
     const Brief = Item.Brief;
-    return this.props.user ?  (
+    console.log(this.props);
+    return this.props.user ? (
       <div>
         <Result
           img={<img src={require(`../img/${this.props.avatar}.png`)} style={{width: 50}} alt=""/>}
@@ -24,9 +51,12 @@ class UserInfo extends React.Component {
             {this.props.desc.split('\n').map(v => (<Brief key={v}>{v}</Brief>))}
           </Item>
         </List>
+        <WhiteSpace/>
+        <List>
+          <Item onClick={this.logout}>退出登录</Item>
+        </List>
       </div>
-    ) : null;
+    ) : <Redirect to={this.props.redirectTo}/>;
   }
 }
-
 export default UserInfo;
