@@ -85,6 +85,7 @@ export function login ({user, pwd, type}) {
         console.log(res.data.data);
         dispatch(authSuccess(res.data.data));
       } else {
+        console.log(res.data);
         dispatch(errorMsg(res.data.msg));
       }
     });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavBar} from 'antd-mobile';
+import {NavBar, Icon  } from 'antd-mobile';
 import {connect} from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
 import Boss from '../../components/Boss/Boss'
@@ -7,12 +7,12 @@ import Genius from '../../components/Genius/Genius';
 import UserInfo from '../../components/userInfo/userInfo';
 
 import NavLinkBar from '../navlinkbar/NavLinkBar';
+import {getMsgList, recMsg} from '../../redux/chat.redux';
 
 @connect(
-  (state) => (state)
+  state => state,
+  {recMsg, getMsgList}
 )
-
-
 class DashBoard extends React.Component {
 
   render () {

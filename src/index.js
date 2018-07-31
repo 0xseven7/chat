@@ -13,7 +13,7 @@ import Login from './login/login';
 import Register from './register/register';
 import AuthRoute from './components/auth/auth';
 import reducer from './reducer';
-
+import Chat from './components/chat/Chat'
 import './index.css'
 
 
@@ -32,6 +32,7 @@ ReactDom.render(<Provider store={store}>
                 <Route path="/register" component={Register}></Route>
                 <Route path="/bossinfo" component={BossInfo}></Route>
                 <Route path="/geniusinfo" component={GeniusInfo}></Route>
+                <Route path="/chat/:user" component={Chat}></Route>
                 <Route path="/msg" component={DashBoard}></Route>
                 <Route path="/me" component={DashBoard}></Route>
                 <Route path="/boss" component={DashBoard}></Route>

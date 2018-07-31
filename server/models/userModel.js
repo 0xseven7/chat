@@ -11,6 +11,14 @@ const models = {
     // 如果是boss
     'money': {type: String},
     'compony': {type: String}
+  },
+  chat: {
+    'chatId': {type: String, require: true},
+    'from': {type: String, require: true},
+    'to': {type: String, require: true},
+    'read': {type: Boolean, require: false},
+    'content': {type: String, require: true, default: ''},
+    'create_time': {type: Number, default: new Date().getTime()}
   }
 };
 
