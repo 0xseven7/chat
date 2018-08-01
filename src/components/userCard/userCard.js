@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Card, WhiteSpace, WingBlank} from 'antd-mobile';
-import {connect} from 'redux'
+import {connect} from 'redux';
+import {withRouter} from 'react-router-dom';
 
-
-
+@withRouter
 class UserCard extends React.Component {
   static propTypes = {
     userList: PropTypes.array.isRequired
@@ -12,18 +12,28 @@ class UserCard extends React.Component {
 
   constructor (props) {
     super(props);
+
+  }
+
+  handleClick (v) {
+    this.props.history.push(`/chat/${v._id}`);
   }
 
   render () {
     return (
       <WingBlank>
         <div>
+
         {this.props.userList.map(v => (
-          v.avatar ? (<Card key={v.user}>
-            <Card.Header
-              title={v.user}
-              extra={<span>{v.position}</span>}
-              thumb={require(`../img/${v.avatar}.png`)}/>
+          v.avatar ?
+            (<Card
+              key={v.user}
+              onClick={() => this.handleClick(v)}>
+
+              <Card.Header
+                title={v.user}
+                extra={<span>{v.position}</span>}
+                thumb={require(`../img/${v.avatar}.png`)}/>
             <Card.Body>
               {v.desc.split('\n').map(d => (
                 <div key={d}>{d}</div>
@@ -32,7 +42,7 @@ class UserCard extends React.Component {
                 <div>
                   <p>公司: {v.compony}</p>
                   <p>薪资: {v.money}</p>
-                </div>: null}
+                </div> : null}
             </Card.Body>
           </Card>) : null
         ))}

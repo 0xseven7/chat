@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {TabBar} from 'antd-mobile';
-
+import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom';
 import './fonts/iconfont.css';
 @withRouter
+  @connect(
+    state => state.chat
+  )
 class NavLinkBar extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired
@@ -19,6 +22,7 @@ class NavLinkBar extends React.Component {
         {navList.map(v => (
           <TabBarItem
             title={v.title}
+            badge={v.path === '/msg' ? this.props.unread : null}
             key={v.path}
             icon={<i className={`am-icon am-icon-${v.icon}`}></i>}
             selectedIcon={<i className={`am-icon am-icon-${v.icon}`}></i>}

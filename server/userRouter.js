@@ -5,6 +5,7 @@ const SALT_ROUNDS = 16;
 
 const Router = express.Router();
 const User = require('./models/userModel').getModel('user');
+const Chat = require('./models/userModel').getModel('chat');
 
 Router.get('/info', function (req, res) {
   const {userid} = req.cookies;
@@ -67,7 +68,7 @@ Router.post('/login', function (req, res) {
           res.cookie('userid', data);
           return res.json({code: 0, data: data});
         } else {
-          return res.json({code :1, msg: '密码错误'});
+          return res.json({code: 1, msg: '密码错误'});
         }
       });
     } else {
@@ -98,6 +99,37 @@ Router.post('/update', function (req, res) {
     }, body);
     return res.json({code: 0, data});
   });
+});
+
+Router.get('/getmsglist', function (req, res) {
+  const user = req.cookies.userid;
+  User.find({}, function (err, userDoc) {
+    let users = {};
+    userDoc.forEach(v => {
+      users[v.id] = {name: v.user, avatar: v.avatar};
+    });
+    Chat.find({'$or': [{from: user}, {to: user}]}, function (err, doc) {
+      if (!err) {
+        return res.json({code: 0, msgs: doc, users: users});
+      }
+    });
+  });
+
+});
+Router.post('/readmsg', function (req, res) {
+  const userId = req.cookies.userid;
+  const {from} = req.body;
+  Chat.update(
+    {from, to: userId},
+    {read: true},
+    {'multi': true},
+    function (err, doc) {
+      if (err) {
+        return res.json({code: 1, msg: '修改出错'});
+      }
+      return res.json({code: 0, num: doc.nModified});
+      // console.log(doc);
+    });
 });
 module.exports = Router;
 
