@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import browserCookies from 'browser-cookies';
 import {Redirect} from 'react-router-dom';
 
-import {Result, Icon, WhiteSpace, List, Button, Modal} from 'antd-mobile';
+import {Result, WhiteSpace, List, Modal} from 'antd-mobile';
 import {logoutCommit} from '../../redux/user.redux';
 
 

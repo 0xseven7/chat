@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Card, WhiteSpace, WingBlank} from 'antd-mobile';
-import {connect} from 'redux';
+import {Card, WingBlank} from 'antd-mobile';
 import {withRouter} from 'react-router-dom';
 
 @withRouter
@@ -10,10 +9,7 @@ class UserCard extends React.Component {
     userList: PropTypes.array.isRequired
   };
 
-  constructor (props) {
-    super(props);
 
-  }
 
   handleClick (v) {
     this.props.history.push(`/chat/${v._id}`);

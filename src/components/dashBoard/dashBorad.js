@@ -1,18 +1,31 @@
 import React from 'react';
-import {NavBar, Icon} from 'antd-mobile';
-import {connect} from 'react-redux';
-import {Switch, Route} from 'react-router-dom';
+import {
+  NavBar,
+} from 'antd-mobile';
+import {
+  connect
+} from 'react-redux';
+import {
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import Boss from '../../components/Boss/Boss';
 import Genius from '../../components/Genius/Genius';
 import UserInfo from '../../components/userInfo/userInfo';
 
 import NavLinkBar from '../navlinkbar/NavLinkBar';
-import {getMsgList, recMsg} from '../../redux/chat.redux';
+import {
+  getMsgList,
+  recMsg
+} from '../../redux/chat.redux';
 import Msg from '../../components/msg/Msg';
 
 @connect(
-  state => state,
-  {recMsg, getMsgList}
+  state => state, {
+    recMsg,
+    getMsgList
+  }
 )
 class DashBoard extends React.Component {
   componentDidMount () {
@@ -38,7 +51,6 @@ class DashBoard extends React.Component {
         title: 'boss',
         component: Boss,
         hide: user.type === 'genius',
-        selected: true
       },
       /**
        * 极客页面, type为boss的时候隐藏
@@ -50,7 +62,6 @@ class DashBoard extends React.Component {
         title: '极客',
         component: Genius,
         hide: user.type === 'boss',
-        selected: true
 
       },
       /**
@@ -63,8 +74,7 @@ class DashBoard extends React.Component {
         title: '消息',
         component: Msg
 
-      },
-      {
+      }, {
         path: '/me',
         text: '个人中心',
         title: '我',
@@ -72,9 +82,10 @@ class DashBoard extends React.Component {
         component: UserInfo
       }
     ];
-    return (
+    const page = navList.find(v => v.path === pathname);
+    return page ? (
       <div>
-        <NavBar>{navList.find(v => v.path === pathname).title}</NavBar>
+        <NavBar>{page.title}</NavBar>
         <div style={{marginTop: 10}}>
             <Switch>
               {navList.map(v => (
@@ -84,9 +95,8 @@ class DashBoard extends React.Component {
         </div>
         <NavLinkBar data={navList}></NavLinkBar>
       </div>
-    );
+    ) :<Redirect to='msg'/>
   }
 }
-
 
 export default DashBoard;

@@ -8,9 +8,6 @@ import {withRouter} from 'react-router-dom';
 )
 @withRouter
 class Msg extends React.Component {
-  constructor  (props) {
-    super(props);
-  }
   getLastMsg (arr) {
     return arr[arr.length - 1]
   }

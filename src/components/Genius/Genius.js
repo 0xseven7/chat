@@ -1,6 +1,5 @@
 import React from 'react';
 import {getUserList} from '../../redux/chat.user.redux';
-import {Card} from 'antd-mobile';
 import UserCard from '../../components/userCard/userCard';
 import {connect} from 'react-redux';
 

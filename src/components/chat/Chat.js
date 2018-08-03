@@ -73,14 +73,12 @@ class Chat extends React.Component {
     }
     return (
       <div id='chat-page'>
-        <NavBar
+        <NavBar className="stick-header"
           icon={<Icon type="left" />}
           onLeftClick={()=>{this.props.history.goBack()}}
           mode="dark">正与{users[targetId].name}交谈</NavBar>
         {chatMsgs.map(v => {
           console.log(v.from === targetId);
-
-
           return v.from === targetId ?
             <Item
               key={v._id}
@@ -89,7 +87,7 @@ class Chat extends React.Component {
             </Item> : <Item
               className='chat-me'
               key={v._id}
-              extra={<img src= {`../img/${users[v.from].avatar}.png`}/>}
+              extra={<img src= {`../img/${users[v.from].avatar}.png`} alt='sadsa'/>}
             >{v.content}</Item>
         })}
         <div className="stick-footer">
@@ -109,6 +107,7 @@ class Chat extends React.Component {
                       });
                       this.fixCarousel();
                     }}
+                    role="img"
                   >😘</span>
                   <span onClick={() => this.handleSubmit()}>发送</span>
                 </div>}
