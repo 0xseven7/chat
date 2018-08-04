@@ -38,9 +38,7 @@ io.on('connection', function(socket) {
 });
 app.use(cookiParser());
 app.use(bodyParser.json());
-app.use('/', function (req, res, next) {
-	res.end('nginx')
-});
+
 app.use('/user', userRouter);
 app.use(function(req, res, next) {
 	if (req.url.startsWith('/user/') || req.url.startsWith('/static')) {
