@@ -12,23 +12,7 @@
                 "NODE_ENV": "production"
             },
             "post-setup": "ls -la",
-            "post-deploy": "yarn && cd /www/chat-fe/ && rm -rf * && cd /www/chat-server/current/build && cp -r . /www/chat-fe/"
+            "post-deploy": "yarn && cd server && pm2 kill && pm2 start ecosystem.json"
         }
-    },
-
-    "apps": [
-        {
-            "name": "chat",
-            "script": "server/app.js",
-            "watch": true,
-            "env": {
-                "PORT": 9000,
-                "NODE_ENV": "development"
-            },
-            "env_production": {
-                "PORT": 9000,
-                "NODE_ENV": "production"
-            }
-        }
-    ]
+    }
 }

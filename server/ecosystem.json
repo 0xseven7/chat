@@ -1,0 +1,34 @@
+{
+    "deploy": {
+        "production": {
+            "user": "zcx",
+            "host": ["149.28.9.185"],
+            "ref": "origin/master",
+            "port": "4396",
+            "repo": "https://github.com/zhangchenxu/chat.git",
+            "path": "/www/chat-server",
+            "ssh_options": "StrictHostKeyChecking=no",
+            "env": {
+                "NODE_ENV": "production"
+            },
+            "post-setup": "ls -la",
+            "post-deploy": "yarn && cd /www/chat-fe/ && rm -rf * && cd /www/chat-server/current/build && cp -r . /www/chat-fe/"
+        }
+    },
+
+    "apps": [
+        {
+            "name": "chat",
+            "script": "server/app.js",
+            "watch": true,
+            "env": {
+                "PORT": 9000,
+                "NODE_ENV": "development"
+            },
+            "env_production": {
+                "PORT": 9000,
+                "NODE_ENV": "production"
+            }
+        }
+    ]
+}
