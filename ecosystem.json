@@ -19,7 +19,7 @@
     "apps": [
         {
             "name": "chat",
-            "script": "server/app",
+            "script": "server/app.js",
             "watch": true,
             "env": {
                 "PORT": 9000,
