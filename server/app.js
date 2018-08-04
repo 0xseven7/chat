@@ -38,13 +38,16 @@ io.on('connection', function(socket) {
 });
 app.use(cookiParser());
 app.use(bodyParser.json());
+app.use('/', function (req, res, next) {
+	res.end('nginx')
+});
 app.use('/user', userRouter);
 app.use(function(req, res, next) {
 	if (req.url.startsWith('/user/') || req.url.startsWith('/static')) {
 		return next();
 	}
 	return res.sendFile(path.resolve('../build/index.html'))
-})
+});
 app.use('/', express.static(path.resolve('../build')));
 
 server.listen(5001, function() {
