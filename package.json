@@ -57,7 +57,11 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "startpm2": "pm2 start ecosystem.json",
+    "testpm2": "mocha --watch",
+    "setuppm2":"pm2 deploy ecosystem.json production setup",
+    "deploypm2":"pm2 deploy ecosystem.json production"
   },
   "jest": {
     "collectCoverageFrom": [

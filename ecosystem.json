@@ -6,13 +6,13 @@
             "ref": "origin/master",
             "port": "4396",
             "repo": "https://github.com/zhangchenxu/chat.git",
-            "path": "/www/chat",
+            "path": "/www/chat-server",
             "ssh_options": "StrictHostKeyChecking=no",
             "env": {
                 "NODE_ENV": "production"
             },
             "post-setup": "ls -la",
-            "post-deploy": "cd /www/chat-front && rm -rf * && cd /root/www/movies_fe/build && cp -r . /www/chat-front"
+            "post-deploy": "cd chat-server && npm install && pm2 kill && pm2 start ecosystem.json--env production"
         }
     }
 }
