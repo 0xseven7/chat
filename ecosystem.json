@@ -12,7 +12,7 @@
                 "NODE_ENV": "production"
             },
             "post-setup": "ls -la",
-            "post-deploy": "yarn && pm2 kill && pm2 start ecosystem.json--env production"
+            "post-deploy": "yarn && cd /www/chat-fe/ && rm -rf * && cd /www/chat-server/current/build && cp -r . /www/chat-fe/"
         }
     },
 
