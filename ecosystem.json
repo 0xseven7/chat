@@ -12,7 +12,23 @@
                 "NODE_ENV": "production"
             },
             "post-setup": "ls -la",
-            "post-deploy": "npm install && pm2 kill && pm2 start ecosystem.json--env production"
+            "post-deploy": "yarn && pm2 kill && pm2 start ecosystem.json--env production"
         }
-    }
+    },
+
+    "apps": [
+        {
+            "name": "chat",
+            "script": "server/app",
+            "watch": true,
+            "env": {
+                "PORT": 9000,
+                "NODE_ENV": "development"
+            },
+            "env_production": {
+                "PORT": 9000,
+                "NODE_ENV": "production"
+            }
+        }
+    ]
 }
