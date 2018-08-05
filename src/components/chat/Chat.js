@@ -27,11 +27,11 @@ class Chat extends React.Component {
     //     msg: [...this.state.msg, data.text]
     //   })
     // });
-    // if (!this.props.chat.chatMsg.length) {
-    //
-    //   this.props.getMsgList();
-    //   this.props.recMsg();
-    // }
+    if (!this.props.chat.chatMsg.length) {
+
+      this.props.getMsgList();
+      this.props.recMsg();
+    }
 
     this.fixCarousel();
   }
@@ -50,7 +50,9 @@ class Chat extends React.Component {
     // socket.emit('sendMsg', {text: this.state.text});
     // this.setState({text: ''})
     const from = this.props.user._id;
+    console.log(this.props.user);
     const to = this.props.match.params.user;
+    console.log(from, to);
     const msg = this.state.text;
     this.props.sendMsg(from, to, msg);
     this.setState({
@@ -73,7 +75,7 @@ class Chat extends React.Component {
     }
     return (
       <div id='chat-page'>
-        <NavBar className="stick-header"
+        <NavBar
           icon={<Icon type="left" />}
           onLeftClick={()=>{this.props.history.goBack()}}
           mode="dark">正与{users[targetId].name}交谈</NavBar>

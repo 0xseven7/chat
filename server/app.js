@@ -46,7 +46,7 @@ app.use(function(req, res, next) {
 	}
 	return res.sendFile(path.resolve(__dirname, '../build/index.html'))
 });
-app.use('/', express.static(path.resolve('__dirname','../build')));
+app.use('/', express.static(path.resolve(__dirname,'../build')));
 
 server.listen(5000, function() {
 	console.log('listen at 5000');

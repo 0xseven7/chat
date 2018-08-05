@@ -29,7 +29,7 @@ class UserCard extends React.Component {
               <Card.Header
                 title={v.user}
                 extra={<span>{v.position}</span>}
-                thumb={require(`../img/${v.avatar}.png`)}/>
+                thumb={`../img/${v.avatar}.png`}/>
             <Card.Body>
               {v.desc.split('\n').map(d => (
                 <div key={d}>{d}</div>

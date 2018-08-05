@@ -16,10 +16,10 @@ class AvatarSelector extends React.Component {
   };
 
   render () {
-    const avatarList = 'boy,girl,man,woman,bull,chick,crab,hedgehog,hippopotamus,koala,lemur,pig,tiger,whale,zebra'
+    const avatarList = 'boy,girl,man,bull,chick,crab,hedgehog,hippopotamus,koala,lemur,pig,tiger,zebra'
       .split(',')
       .map((v) => ({
-        icon: require(`../img/${v}.png`),
+        icon: `../img/${v}.png`,
         text: v
       }));
     const gridHeader = this.state.text ? (<div>

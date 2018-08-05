@@ -26,7 +26,6 @@ class Msg extends React.Component {
     const chatList = Object.values(msgGroup).sort((a, b) => {
       const a_last = this.getLastMsg(a).create_time;
       const b_last = this.getLastMsg(b).create_time;
-      console.log(a_last, b_last);
       return b_last - a_last;
     });
     console.log(chatList);
@@ -36,8 +35,8 @@ class Msg extends React.Component {
           {chatList.map(v=> {
             const lastItem = this.getLastMsg(v);
             const unreadNum = v.filter(k => !k.read && k.to === userId).length;
-            console.log(unreadNum);
             const targetId = v[0].from === userId ? v[0].to : v[0].from;
+            console.log(v);
             return <List.Item
               onClick={() => this.handleClick(targetId)}
               extra={<Badge text={unreadNum}/>}

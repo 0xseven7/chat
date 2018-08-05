@@ -32,7 +32,6 @@ export function chat (state = initState, action) {
       const {from, num} = action.payload;
       return {
         ...state, unread: state.unread - num, chatMsg: state.chatMsg.map(v => {
-          console.log(from,  v.from);
           return {
             ...v,
             read: from === v.from ? true : v.read
@@ -53,7 +52,6 @@ function msgRec (data, userId) {
 }
 
 function msgRead ({from, to, num}) {
-  console.log(num);
   return {type: MSG_READ, payload: {from, to, num}};
 }
 

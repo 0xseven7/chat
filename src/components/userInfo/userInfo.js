@@ -41,7 +41,7 @@ class UserInfo extends React.Component {
     return this.props.user ? (
       <div>
         <Result
-          img={<img src={require(`../img/${this.props.avatar}.png`)} style={{width: 50}} alt=""/>}
+          img={<img src={`../img/${this.props.avatar}.png`} style={{width: 50}} alt=""/>}
           title={this.props.user}
           message={this.props.type === 'boss' ? this.props.compony : null}
         >
