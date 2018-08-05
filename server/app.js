@@ -6,8 +6,8 @@ const userRouter = require('./userRouter');
 const path = require('path');
 // 连接mongodb
 const mongoose = require('mongoose');
-// const url = "mongodb://zcx1:fuckmongo@149.28.9.185/chat";
-const url = "mongodb://127.0.0.1:27017/chat";
+const url = "mongodb://zcx1:fuckmongo@149.28.9.185:27017/chat";
+// const url = "mongodb://127.0.0.1:27017/chat";
 mongoose.connect(url, { useNewUrlParser: true });
 const Chat = require('./models/userModel').getModel('chat');
 
@@ -44,9 +44,9 @@ app.use(function(req, res, next) {
 	if (req.url.startsWith('/user/') || req.url.startsWith('/static')) {
 		return next();
 	}
-	return res.sendFile(path.resolve('./build/index.html'))
+	return res.sendFile(path.resolve(__dirname, '../build/index.html'))
 });
-app.use('/', express.static(path.resolve('./build')));
+app.use('/', express.static(path.resolve('__dirname','../build')));
 
 server.listen(5000, function() {
 	console.log('listen at 5000');
