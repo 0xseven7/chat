@@ -18,11 +18,9 @@ class Login extends React.Component {
   constructor (props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
   }
 
-  register () {
-    this.props.history.push('/login');
-  };
 
   // handleChange (key, val) {
   //   this.setState(
@@ -31,7 +29,9 @@ class Login extends React.Component {
   //     }
   //   );
   // }
-
+  handleRegister () {
+    this.props.history.push('/register');
+  }
   handleLogin () {
     this.props.login(this.props.state);
   };
@@ -41,7 +41,6 @@ class Login extends React.Component {
    * @returns {*}
    */
   render () {
-    console.log(this.props.redirectTo);
     return (
       <div>
         {this.props.redirectTo&& this.props.redirectTo !== '/login' ? <Redirect to={getRedirectPath(this.props.redirectTo)}/> : null}
@@ -56,6 +55,8 @@ class Login extends React.Component {
           </List>
           <WhiteSpace/>
           <Button type="primary" onClick={this.handleLogin}>登录</Button>
+          <WhiteSpace/>
+          <Button type="primary" onClick={this.handleRegister}>去注册</Button>
         </WingBlank>
       </div>
     );

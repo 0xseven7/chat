@@ -10,6 +10,7 @@ import {getChatId} from '../../util';
   state => state,
   {getMsgList, sendMsg, recMsg, readMsg}
 )
+
 @withRouter
 
 class Chat extends React.Component {
