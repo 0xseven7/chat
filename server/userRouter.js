@@ -34,7 +34,7 @@ Router.post('/register', function (req, res) {
     }
 
     bcrypt.genSalt(SALT_ROUNDS, function (err, salt) {
-      bcrypt.hash(pwd, salt, function (err, hash) {
+      bcrypt.hash(pwd, salt,null, function (err, hash) {
         // Store hash in your password DB.
         const userModel = new User({user, type, pwd: hash});
         userModel.save(function (err, data) {
@@ -47,6 +47,9 @@ Router.post('/register', function (req, res) {
         });
       });
     });
+    // bcrypt.hash(pwd, null, null, function(err, hash) {
+    //   // Store hash in your password DB.
+    // });
   });
 });
 /**
